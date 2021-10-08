@@ -68,7 +68,12 @@ public class GPS : MonoBehaviour
         latText.text = latitude.ToString();
 
         gpsCoordinate = new GeoCoordinate(latitude, longitude);
+        SendCoordinates();
     }
     
+    void SendCoordinates()
+    {
+        ClientSend.ClientCoordinates(gpsCoordinate);
+    }
 
 }

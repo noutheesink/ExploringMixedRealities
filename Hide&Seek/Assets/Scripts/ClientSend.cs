@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Device.Location;
 using UnityEngine;
 
 public class ClientSend : MonoBehaviour
@@ -25,6 +26,15 @@ public class ClientSend : MonoBehaviour
             _packet.Write(UIManager.instance.usernameField.text);
 
             SendTCPData(_packet);
+        }
+    }
+
+    public static void ClientCoordinates(GeoCoordinate coordinate)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.clientCoordinates))
+        {
+            _packet.Write(coordinate);
+            SendUDPData(_packet);
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Text;
 using UnityEngine;
 
@@ -18,7 +19,8 @@ public enum ServerPackets
 public enum ClientPackets
 {
     welcomeReceived = 1,
-    playerMovement
+    playerMovement,
+    clientCoordinates
 }
 
 public class Packet : IDisposable
@@ -149,6 +151,12 @@ public class Packet : IDisposable
     {
         buffer.AddRange(BitConverter.GetBytes(_value));
     }
+    /// <summary>Adds a double to the packet.</summary>
+    /// <param name="_value">The double to add.</param>
+    public void Write(double _value)
+    {
+        buffer.AddRange(BitConverter.GetBytes(_value));
+    }
     /// <summary>Adds a bool to the packet.</summary>
     /// <param name="_value">The bool to add.</param>
     public void Write(bool _value)
@@ -179,6 +187,14 @@ public class Packet : IDisposable
         Write(_value.z);
         Write(_value.w);
     }
+    public void Write(GeoCoordinate _value)
+    {
+        Write(_value.Latitude);
+        Write(_value.Longitude);
+    }
+
+   
+
     #endregion
 
     #region Read Data
