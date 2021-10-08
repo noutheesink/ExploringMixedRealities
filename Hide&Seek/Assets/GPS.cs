@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Device.Location;
 using TMPro;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -9,6 +10,8 @@ using UnityEngine.XR.ARFoundation;
 public class GPS : MonoBehaviour
 {
     public static GPS Instance;
+
+    public GeoCoordinate gpsCoordinate;
     
     public float latitude;
     public float longitude;
@@ -63,6 +66,8 @@ public class GPS : MonoBehaviour
     {
         longText.text = longitude.ToString();
         latText.text = latitude.ToString();
+
+        gpsCoordinate = new GeoCoordinate(latitude, longitude);
     }
     
 
