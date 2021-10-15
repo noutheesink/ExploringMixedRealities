@@ -31,7 +31,7 @@ public class ClientSend : MonoBehaviour
 
     public static void ClientCoordinates(GeoCoordinate coordinate)
     {
-        using (Packet _packet = new Packet((int)ClientPackets.clientCoordinates))
+        using (Packet _packet = new Packet((int)ClientPackets.clientGeoCoordinates))
         {
             _packet.Write(coordinate);
             SendUDPData(_packet);

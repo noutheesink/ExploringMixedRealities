@@ -19,6 +19,7 @@ public class GPS : MonoBehaviour
     public TextMeshProUGUI logText;
     public TextMeshProUGUI longText;
     public TextMeshProUGUI latText;
+    public bool sendLocation = false;
     
     // Start is called before the first frame update
     void Start()
@@ -68,7 +69,10 @@ public class GPS : MonoBehaviour
         latText.text = latitude.ToString();
 
         gpsCoordinate = new GeoCoordinate(latitude, longitude);
-        SendCoordinates();
+        if (sendLocation)
+        {
+            SendCoordinates();
+        }
     }
     
     void SendCoordinates()

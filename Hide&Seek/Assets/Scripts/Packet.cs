@@ -20,7 +20,7 @@ public enum ClientPackets
 {
     welcomeReceived = 1,
     playerMovement,
-    clientCoordinates
+    clientGeoCoordinates
 }
 
 public class Packet : IDisposable
