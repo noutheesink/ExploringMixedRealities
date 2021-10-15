@@ -5,3 +5,10 @@ D:\Users\Lucas\Desktop\Lucas\Universiteit\Rapid Prototyping\mixed realities\Serv
 D:\Users\Lucas\Desktop\Lucas\Universiteit\Rapid Prototyping\mixed realities\Server\Server\Server\bin\Debug\Server.pdb
 D:\Users\Lucas\Desktop\Lucas\Universiteit\Rapid Prototyping\mixed realities\Server\Server\Server\obj\Debug\Server.exe
 D:\Users\Lucas\Desktop\Lucas\Universiteit\Rapid Prototyping\mixed realities\Server\Server\Server\obj\Debug\Server.pdb
+E:\Users\Lucas\Documents\GitHub\ExploringMixedRealities\Server\Server\bin\Debug\Server.exe.config
+E:\Users\Lucas\Documents\GitHub\ExploringMixedRealities\Server\Server\bin\Debug\Server.exe
+E:\Users\Lucas\Documents\GitHub\ExploringMixedRealities\Server\Server\bin\Debug\Server.pdb
+E:\Users\Lucas\Documents\GitHub\ExploringMixedRealities\Server\Server\obj\Debug\Server.csprojAssemblyReference.cache
+E:\Users\Lucas\Documents\GitHub\ExploringMixedRealities\Server\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+E:\Users\Lucas\Documents\GitHub\ExploringMixedRealities\Server\Server\obj\Debug\Server.exe
+E:\Users\Lucas\Documents\GitHub\ExploringMixedRealities\Server\Server\obj\Debug\Server.pdb

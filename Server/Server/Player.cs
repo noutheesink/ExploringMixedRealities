@@ -9,20 +9,19 @@ namespace GameServer
     {
         public int id;
         public string username;
-        public bool seeker;
+
         public Vector3 position;
         public Quaternion rotation;
 
         private float moveSpeed = 5f / Constants.TICKS_PER_SEC;
         private bool[] inputs;
 
-        public Player(int _id, string _username, Vector3 _spawnPosition, bool _seeker)
+        public Player(int _id, string _username, Vector3 _spawnPosition)
         {
             id = _id;
             username = _username;
             position = _spawnPosition;
             rotation = Quaternion.Identity;
-            seeker = _seeker;
 
             inputs = new bool[4];
         }
