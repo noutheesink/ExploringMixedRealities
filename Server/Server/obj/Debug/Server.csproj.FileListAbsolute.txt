@@ -1,0 +1,7 @@
+D:\Users\Lucas\Desktop\Lucas\Universiteit\Rapid Prototyping\mixed realities\Server\Server\Server\obj\Debug\Server.csprojAssemblyReference.cache
+D:\Users\Lucas\Desktop\Lucas\Universiteit\Rapid Prototyping\mixed realities\Server\Server\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+D:\Users\Lucas\Desktop\Lucas\Universiteit\Rapid Prototyping\mixed realities\Server\Server\Server\bin\Debug\Server.exe.config
+D:\Users\Lucas\Desktop\Lucas\Universiteit\Rapid Prototyping\mixed realities\Server\Server\Server\bin\Debug\Server.exe
+D:\Users\Lucas\Desktop\Lucas\Universiteit\Rapid Prototyping\mixed realities\Server\Server\Server\bin\Debug\Server.pdb
+D:\Users\Lucas\Desktop\Lucas\Universiteit\Rapid Prototyping\mixed realities\Server\Server\Server\obj\Debug\Server.exe
+D:\Users\Lucas\Desktop\Lucas\Universiteit\Rapid Prototyping\mixed realities\Server\Server\Server\obj\Debug\Server.pdb
