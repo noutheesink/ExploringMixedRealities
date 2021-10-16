@@ -15,14 +15,15 @@ namespace GameServer
 
         private float moveSpeed = 5f / Constants.TICKS_PER_SEC;
         private bool[] inputs;
+        bool seeker;
 
-        public Player(int _id, string _username, Vector3 _spawnPosition)
+        public Player(int _id, string _username, Vector3 _spawnPosition, bool _seeker)
         {
             id = _id;
             username = _username;
             position = _spawnPosition;
             rotation = Quaternion.Identity;
-
+            seeker = _seeker;
             inputs = new bool[4];
         }
 
@@ -45,7 +46,9 @@ namespace GameServer
             {
                 _inputDirection.X -= 1;
             }
-
+            if (seeker)
+            {
+            }
             Move(_inputDirection);
         }
 

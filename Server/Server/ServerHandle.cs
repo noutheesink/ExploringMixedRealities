@@ -12,13 +12,14 @@ namespace GameServer
         {
             int _clientIdCheck = _packet.ReadInt();
             string _username = _packet.ReadString();
+            bool seeker = _packet.ReadBool();
 
             Console.WriteLine($"{Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint} connected successfully and is now player {_fromClient}.");
             if (_fromClient != _clientIdCheck)
             {
                 Console.WriteLine($"Player \"{_username}\" (ID: {_fromClient}) has assumed the wrong client ID ({_clientIdCheck})!");
             }
-            Server.clients[_fromClient].SendIntoGame(_username);
+            Server.clients[_fromClient].SendIntoGame(_username, seeker);
         }
 
         public static void PlayerMovement(int _fromClient, Packet _packet)
