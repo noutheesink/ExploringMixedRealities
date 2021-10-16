@@ -521,7 +521,8 @@ MonoBehaviour:
   testLong: 0
   testLat: 0
   distanceText: {fileID: 633987595}
-  sweepTransform: {fileID: 0}
+  maxDistance: 0
+  motherDot: {fileID: 1890570515}
 --- !u!4 &44853902
 Transform:
   m_ObjectHideFlags: 0
@@ -2029,10 +2030,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff09310e74970a449b0e8cfcdd1cb3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ip: 109.37.134.66
+  ip: 145.90.75.62
   port: 26952
   myId: 0
-  isConnected: 0
 --- !u!4 &1466820655
 Transform:
   m_ObjectHideFlags: 0
