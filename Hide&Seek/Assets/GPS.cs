@@ -20,10 +20,23 @@ public class GPS : MonoBehaviour
     public TextMeshProUGUI longText;
     public TextMeshProUGUI latText;
     
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Debug.Log("Instance already exists, destroying object!");
+            Destroy(this);
+        }
+    }
+    
+    
     // Start is called before the first frame update
     void Start()
     {
-        Instance = this;
         DontDestroyOnLoad(gameObject);
         StartCoroutine(StartLocationService());
     }

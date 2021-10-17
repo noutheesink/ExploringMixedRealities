@@ -7,9 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
-    public GameObject startMenu;
-    public InputField usernameField;
-    public bool seeker = false;
+    public bool seeker;
 
     private void Awake()
     {
@@ -24,15 +22,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ConnectToServer()
+    public void Start()
     {
-        startMenu.SetActive(false);
-        usernameField.interactable = false;
-        Client.instance.ConnectToServer();
+        StartCoroutine(WaitForConnecting());
     }
 
-    public void ToggleSeeker()
+    private IEnumerator WaitForConnecting()
     {
-        seeker = !seeker;
+        yield return new WaitForSeconds(1);
+        Client.instance.ConnectToServer();
     }
 }
