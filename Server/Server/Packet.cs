@@ -12,7 +12,6 @@ namespace GameServer
         welcome = 1,
         spawnPlayer,
         playerPosition,
-        playerRotation,
         playerDisconnected
     }
 
@@ -152,6 +151,11 @@ namespace GameServer
         {
             buffer.AddRange(BitConverter.GetBytes(_value));
         }
+
+        public void Write(double _value)
+        {
+            buffer.AddRange(BitConverter.GetBytes(_value));
+        }
         /// <summary>Adds a bool to the packet.</summary>
         /// <param name="_value">The bool to add.</param>
         public void Write(bool _value)
@@ -181,6 +185,11 @@ namespace GameServer
             Write(_value.Y);
             Write(_value.Z);
             Write(_value.W);
+        }
+        public void Write(GeoCoordinate _value)
+        {
+            Write(_value.Latitude);
+            Write(_value.Longitude);
         }
         #endregion
 
@@ -320,7 +329,7 @@ namespace GameServer
                 if (_moveReadPos)
                 {
                     // If _moveReadPos is true
-                    readPos += 8; // Increase readPos by 4
+                    readPos += 8; // Increase readPos by 8
                 }
                 return _value; // Return the float
             }

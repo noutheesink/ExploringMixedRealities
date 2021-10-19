@@ -11,15 +11,14 @@ namespace GameServer
         public static void WelcomeReceived(int _fromClient, Packet _packet)
         {
             int _clientIdCheck = _packet.ReadInt();
-            string _username = _packet.ReadString();
             bool seeker = _packet.ReadBool();
 
-            Console.WriteLine($"{Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint} connected successfully and is now player {_fromClient}.");
+            Console.WriteLine($"{Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint} connected successfully and is now player {_fromClient}. Seeker: {seeker}");
             if (_fromClient != _clientIdCheck)
             {
-                Console.WriteLine($"Player \"{_username}\" (ID: {_fromClient}) has assumed the wrong client ID ({_clientIdCheck})!");
+                Console.WriteLine($"Player with ID: {_fromClient}) has assumed the wrong client ID ({_clientIdCheck})!");
             }
-            Server.clients[_fromClient].SendIntoGame(_username, seeker);
+            Server.clients[_fromClient].SendIntoGame(seeker);
         }
 
         public static void PlayerMovement(int _fromClient, Packet _packet)
@@ -29,17 +28,12 @@ namespace GameServer
             {
                 _inputs[i] = _packet.ReadBool();
             }
-            Quaternion _rotation = _packet.ReadQuaternion();
 
-            Server.clients[_fromClient].player.SetInput(_inputs, _rotation);
+            Server.clients[_fromClient].player.SetInput(_inputs);
         }
         public static void ClientGeoCoordinate(int _fromClient, Packet _packet)
         {
-            GeoCoordinate coordinate = _packet.ReadGeoCoordinate();
-            
-            
-
-            Server.clients[_fromClient].player.position = new Vector3((float)coordinate.Latitude, 0, (float)coordinate.Longitude);
+            Server.clients[_fromClient].player.coordinate = _packet.ReadGeoCoordinate();;
         }
     }
 }
