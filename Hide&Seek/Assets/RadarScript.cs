@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
+using Random = UnityEngine.Random;
 
 public class RadarScript : MonoBehaviour
 {
@@ -17,23 +18,23 @@ public class RadarScript : MonoBehaviour
     public float testLong;
     public float testLat;
 
-    private Transform sweepTransform;
+    public Transform sweepTransform;
 
     private GeoCoordinate myCoordinates;
     public double radarScale;
     public double maxDistance;
     public GameObject motherDot;
-
+    public Transform radarBackground;
+    public float jamRotationSpeed = 20;
+    
     public List<GeoCoordinate> coordinatesList = new List<GeoCoordinate>();
     private List<GameObject> radarDots = new List<GameObject>();
 
     public GameObject radarJamming;
+    private bool isJamming = false;
 
     private void Awake()
     {
-        sweepTransform = transform.Find("Sweep");
-        
-        //coordinatesList.Add(mcDonaldsCoord);
         XRSettings.LoadDeviceByName("");
         XRSettings.enabled = false;
     }
@@ -66,7 +67,9 @@ public class RadarScript : MonoBehaviour
 
     private void Sweep()
     {
-        sweepTransform.eulerAngles -= new Vector3(0, 0, sweepSpeed * Time.deltaTime);
+        float currentSweepSpeed = sweepSpeed;
+        if (isJamming) currentSweepSpeed *= 10;
+        sweepTransform.eulerAngles -= new Vector3(0, 0, currentSweepSpeed * Time.deltaTime);
     }
     
     public Vector3 GetRadarPosition()
@@ -93,8 +96,16 @@ public class RadarScript : MonoBehaviour
         Vector3 radarOrigin = transform.position;
         
         
-        var newDot = Instantiate(motherDot, transform);
-        newDot.GetComponent<RectTransform>().transform.position = radarOrigin + deltaDir;
+        var newDot = Instantiate(motherDot, radarBackground);
+
+        if (isJamming)
+        {
+            float range = 600;
+            newDot.GetComponent<RectTransform>().transform.position = radarOrigin + new Vector3(Random.Range(-range, range),Random.Range(-range, range),0);
+        }
+        else newDot.GetComponent<RectTransform>().transform.position = radarOrigin + deltaDir;
+        
+        
         
         newDot.SetActive(true);
         radarDots.Add(newDot);
@@ -106,12 +117,18 @@ public class RadarScript : MonoBehaviour
 
         while (timeUntilJamStop > 0)
         {
+            isJamming = true;
+            Debug.Log(timeUntilJamStop);
             radarJamming.SetActive(true);
             timeUntilJamStop -= Time.deltaTime;
-            yield break;
+            radarJamming.transform.GetChild(0).rotation *= Quaternion.Euler(0,0,jamRotationSpeed * Time.deltaTime);
+            yield return null;
         }
+        
+        radarJamming.transform.GetChild(0).rotation = Quaternion.Euler(0,0,0);
 
         radarJamming.SetActive(false);
+        isJamming = false;
     }
 }
 
