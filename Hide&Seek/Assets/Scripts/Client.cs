@@ -278,6 +278,7 @@ public class Client : MonoBehaviour
                 {
                     int _packetId = _packet.ReadInt();
                     packetHandlers[_packetId](_packet); // Call appropriate method to handle the packet
+                    Debug.Log(_packetId);
                 }
             });
         }
@@ -301,6 +302,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.spawnPlayer, ClientHandle.SpawnPlayer },
             { (int)ServerPackets.playerPosition, ClientHandle.PlayerPosition },
             { (int)ServerPackets.playerDisconnected, ClientHandle.PlayerDisconnected },
+            { (int)ServerPackets.actionButton, ClientHandle.Button }
         };
         Debug.Log("Initialized packets.");
     }

@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     public void HandleButton(string buttonFunction)
     {
+        Debug.Log("well if this doesnt work than idk anymore   " + buttonFunction);
         switch (buttonFunction)
         {
             case "jamButton":

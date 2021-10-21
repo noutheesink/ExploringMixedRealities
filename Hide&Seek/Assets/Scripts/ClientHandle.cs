@@ -36,8 +36,11 @@ public class ClientHandle : MonoBehaviour
     
     public static void Button(Packet _packet)
     {
-        string buttonFunction = _packet.ReadString();
-        
+        Debug.Log("well this works");
+        GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Debug.Log("does manager even exist?  " + gameManager);
+        gameManager.HandleButton(_packet.ReadString());
+
     }
 
     public static void PlayerDisconnected(Packet _packet)
