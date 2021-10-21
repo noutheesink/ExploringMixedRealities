@@ -9,7 +9,6 @@ using UnityEngine.XR;
 
 public class RadarScript : MonoBehaviour
 {
-    public float sweepSpeed = 180;
     public RawImage enemyImage;
     
     private static GPS gps;
@@ -30,7 +29,6 @@ public class RadarScript : MonoBehaviour
     
     public List<GeoCoordinate> coordinatesList = new List<GeoCoordinate>();
     private List<GameObject> radarDots = new List<GameObject>();
-    
 
     private void Awake()
     {
@@ -47,23 +45,24 @@ public class RadarScript : MonoBehaviour
     void Start()
     {
         gps = GPS.Instance;
-        
-        //for (int i = 0; i < coordinatesList.Count; i++)
-        //{
-        //    RawImage newImage = Instantiate(enemyImage, transform);
-        //    newImage.gameObject.SetActive(true);
-        //    coordinatesList[i] = (coordinatesList[i].Item1, newImage);
-        //}
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(coordinatesList.Count);
-        //float distance = (float)gps.gpsCoordinate.GetDistanceTo(mcDonaldsCoord);
+        //rotate radar to north
+        Input.location.Start();
+        Input.compass.enabled = true;
+        Quaternion magneticRotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, -Input.compass.magneticHeading), Time.deltaTime * 2);
+        transform.rotation = magneticRotation;
 
-        distanceText.text = "Distance to McDonalds: ";
-        //myCoordinates = gps.gpsCoordinate;
+        //rotate all dots according to magnetic radar rotation
+        foreach (GameObject dot in radarDots)
+        {
+            dot.transform.RotateAround(gameObject.transform.position, new Vector3(0, 0, 1), magneticRotation.eulerAngles.z);
+        }
+
+        distanceText.text = "Angle to north: " + (-Input.compass.magneticHeading).ToString();
 
         coordinatesList.Clear();
 
@@ -76,35 +75,10 @@ public class RadarScript : MonoBehaviour
         radarDots.ForEach(Destroy);
         foreach(GeoCoordinate coordinates in coordinatesList)
         {
-            
-            //Debug.Log("coordinate: " + coordinates.Latitude + ", " + coordinates.Longitude);
             PlaceCoordinates(coordinates);
         }
-
-        //ShowOnRadar();
-        Sweep();
     }
 
-    //private void ShowOnRadar()
-    //{
-    //    Vector2 gpsVector2 = new Vector2(gps.latitude, gps.longitude);
-    //    foreach (var (coordinate,image) in coordinatesList)
-    //    {
-    //        float distance = (float)gps.gpsCoordinate.GetDistanceTo(coordinate);
-
-    //        Vector2 direction = (new Vector2((float) coordinate.Latitude, (float) coordinate.Longitude) - gpsVector2)
-    //            .normalized;
-
-    //        Vector2 position = direction * distance;
-
-    //        image.rectTransform.position = position;
-    //    }
-    //}
-
-    private void Sweep()
-    {
-        sweepTransform.eulerAngles -= new Vector3(0, 0, sweepSpeed * Time.deltaTime);
-    }
     
     public Vector3 GetRadarPosition()
     {

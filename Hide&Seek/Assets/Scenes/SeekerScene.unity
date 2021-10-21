@@ -742,6 +742,7 @@ GameObject:
   - component: {fileID: 805867877}
   - component: {fileID: 805867879}
   - component: {fileID: 805867878}
+  - component: {fileID: 805867880}
   m_Layer: 0
   m_Name: Sweep
   m_TagString: Untagged
@@ -804,6 +805,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805867876}
   m_CullTransparentMesh: 1
+--- !u!114 &805867880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805867876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9a396ee7f5d6494b862ee6bc4642814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sweepSpeed: 180
 --- !u!1 &1152302422
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,7 +843,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152302422}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 113, y: 9, z: 0}
+  m_LocalPosition: {x: -15, y: -203, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 535294610}
@@ -850,13 +864,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79d8fb63896d86345bdb2bb2b04fb797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sweepSpeed: 180
   enemyImage: {fileID: 1727442567}
   testLong: 0
   testLat: 0.00043
   distanceText: {fileID: 1881883733}
   radarScale: 147
-  maxDistance: 50
+  maxDistance: 100
   motherDot: {fileID: 1727442565}
 --- !u!1 &1409310816
 GameObject:
