@@ -13,7 +13,7 @@ namespace GameServer
         public GeoCoordinate coordinate;
 
         private bool[] inputs;
-        bool seeker;
+        public readonly bool seeker;
 
         public Player(int _id, bool _seeker)
         {

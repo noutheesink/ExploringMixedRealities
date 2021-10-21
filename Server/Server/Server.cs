@@ -131,7 +131,8 @@ namespace GameServer
             {
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
                 { (int)ClientPackets.playerMovement, ServerHandle.PlayerMovement },
-                { (int)ClientPackets.clientGeoCoordinates, ServerHandle.ClientGeoCoordinate }
+                { (int)ClientPackets.clientGeoCoordinates, ServerHandle.ClientGeoCoordinate },
+                { (int)ClientPackets.actionButton, ServerHandle.Button }
             };
             Console.WriteLine("Initialized packets.");
         }

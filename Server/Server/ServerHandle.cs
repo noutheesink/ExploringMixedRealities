@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Device.Location;
 using System.Numerics;
@@ -34,6 +35,11 @@ namespace GameServer
         public static void ClientGeoCoordinate(int _fromClient, Packet _packet)
         {
             Server.clients[_fromClient].player.coordinate = _packet.ReadGeoCoordinate();;
+        }
+
+        public static void Button(int _fromClient, Packet _packet)
+        {
+            GameLogic.HandleButton(_fromClient, _packet.ReadString());
         }
     }
 }

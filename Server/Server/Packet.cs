@@ -12,7 +12,8 @@ namespace GameServer
         welcome = 1,
         spawnPlayer,
         playerPosition,
-        playerDisconnected
+        playerDisconnected,
+        actionButton
     }
 
     /// <summary>Sent from client to server.</summary>
@@ -20,7 +21,8 @@ namespace GameServer
     {
         welcomeReceived = 1,
         playerMovement,
-        clientGeoCoordinates
+        clientGeoCoordinates,
+        actionButton
     }
 
     public class Packet : IDisposable

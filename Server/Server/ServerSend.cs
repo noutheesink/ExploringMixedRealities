@@ -92,6 +92,17 @@ namespace GameServer
             }
         }
 
+        public static void Button(int _toClient, string buttonFunction)
+        {
+            Console.WriteLine("gonna send a button packet");
+            using (Packet _packet = new Packet((int)ServerPackets.actionButton))
+            {
+                _packet.Write(buttonFunction);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
+
         public static void PlayerDisconnected(int playerid)
         {
             using(Packet _packet = new Packet((int)ServerPackets.playerDisconnected))
