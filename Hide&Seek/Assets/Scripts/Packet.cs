@@ -324,6 +324,25 @@ public class Packet : IDisposable
             throw new Exception("Could not read value of type 'float'!");
         }
     }
+    
+    public double ReadDouble(bool _moveReadPos = true)
+    {
+        if (buffer.Count > readPos)
+        {
+            // If there are unread bytes
+            double _value = BitConverter.ToDouble(readableBuffer, readPos); // Convert the bytes to a float
+            if (_moveReadPos)
+            {
+                // If _moveReadPos is true
+                readPos += 8; // Increase readPos by 8
+            }
+            return _value; // Return the float
+        }
+        else
+        {
+            throw new Exception("Could not read value of type 'double'!");
+        }
+    }
 
     /// <summary>Reads a bool from the packet.</summary>
     /// <param name="_moveReadPos">Whether or not to move the buffer's read position.</param>
@@ -379,6 +398,10 @@ public class Packet : IDisposable
     public Quaternion ReadQuaternion(bool _moveReadPos = true)
     {
         return new Quaternion(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos));
+    }
+    public GeoCoordinate ReadGeoCoordinate(bool _moveReadPos = true)
+    {
+        return new GeoCoordinate(ReadDouble(_moveReadPos), ReadDouble(_moveReadPos));
     }
     #endregion
 

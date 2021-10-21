@@ -19,12 +19,24 @@ public class GPS : MonoBehaviour
     public TextMeshProUGUI logText;
     public TextMeshProUGUI longText;
     public TextMeshProUGUI latText;
-    public bool sendLocation = false;
+    
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Debug.Log("Instance already exists, destroying object!");
+            Destroy(this);
+        }
+    }
+    
     
     // Start is called before the first frame update
     void Start()
     {
-        Instance = this;
         DontDestroyOnLoad(gameObject);
         StartCoroutine(StartLocationService());
     }
@@ -69,7 +81,7 @@ public class GPS : MonoBehaviour
         latText.text = latitude.ToString();
 
         gpsCoordinate = new GeoCoordinate(latitude, longitude);
-        if (sendLocation)
+        if (latitude != 0 && longitude != 0)
         {
             SendCoordinates();
         }

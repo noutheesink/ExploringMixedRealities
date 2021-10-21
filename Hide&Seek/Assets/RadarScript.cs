@@ -24,10 +24,12 @@ public class RadarScript : MonoBehaviour
     private GeoCoordinate mcDonaldsCoord;
 
     private GeoCoordinate myCoordinates;
+    public double radarScale;
     public double maxDistance;
     public GameObject motherDot;
     
-    private List<GeoCoordinate> coordinatesList = new List<GeoCoordinate>();
+    public List<GeoCoordinate> coordinatesList = new List<GeoCoordinate>();
+    private List<GameObject> radarDots = new List<GameObject>();
     
 
     private void Awake()
@@ -36,7 +38,7 @@ public class RadarScript : MonoBehaviour
         
         mcDonaldsCoord = new GeoCoordinate(testLat, testLong);
         
-        coordinatesList.Add(mcDonaldsCoord);
+        //coordinatesList.Add(mcDonaldsCoord);
         XRSettings.LoadDeviceByName("");
         XRSettings.enabled = false;
     }
@@ -57,12 +59,25 @@ public class RadarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float distance = (float)gps.gpsCoordinate.GetDistanceTo(mcDonaldsCoord);
+        //Debug.Log(coordinatesList.Count);
+        //float distance = (float)gps.gpsCoordinate.GetDistanceTo(mcDonaldsCoord);
 
-        distanceText.text = "Distance to McDonalds: " + distance;
-        myCoordinates = gps.gpsCoordinate;
+        distanceText.text = "Distance to McDonalds: ";
+        //myCoordinates = gps.gpsCoordinate;
+
+        coordinatesList.Clear();
+
+        foreach (var player in GameManager.players)
+        {
+            if (player.Key != Client.instance.myId) coordinatesList.Add(player.Value);
+        } 
+        coordinatesList.Add(new GeoCoordinate(testLat,testLong));
+        
+        radarDots.ForEach(Destroy);
         foreach(GeoCoordinate coordinates in coordinatesList)
         {
+            
+            //Debug.Log("coordinate: " + coordinates.Latitude + ", " + coordinates.Longitude);
             PlaceCoordinates(coordinates);
         }
 
@@ -91,28 +106,36 @@ public class RadarScript : MonoBehaviour
         sweepTransform.eulerAngles -= new Vector3(0, 0, sweepSpeed * Time.deltaTime);
     }
     
-    public Vector3 getRadarPosition()
+    public Vector3 GetRadarPosition()
     {
-        return gameObject.transform.position;
+        return transform.position;
     }
 
     private void PlaceCoordinates(GeoCoordinate coordinates)
     {
-        double distance = myCoordinates.GetDistanceTo(coordinates);
+        double distance = gps.gpsCoordinate.GetDistanceTo(coordinates);
+        //Debug.Log("has distance: " + distance);
         if (distance > maxDistance)
             return;
 
-        double myX = myCoordinates.Latitude;
-        double myY = myCoordinates.Longitude;
+        double myX = gps.gpsCoordinate.Latitude;
+        double myY = gps.gpsCoordinate.Longitude;
 
         double otherX = coordinates.Latitude;
         double otherY = coordinates.Longitude;
 
-        Vector3 deltaDir = new Vector3((float)(myX - otherX), (float)(myY - otherY), gameObject.transform.position.z - 0.5f).normalized;
-        deltaDir *= (float)(222 * distance / maxDistance);
+        Vector3 deltaDir = new Vector3((float)(myX - otherX), (float)(myY - otherY), 0).normalized;
+        deltaDir *= (float)(radarScale * distance / maxDistance);
 
-        Vector3 radarOrigin = gameObject.transform.position;
-        Instantiate(motherDot, radarOrigin + deltaDir, new Quaternion());
+        Vector3 radarOrigin = transform.position;
+        
+        //var newDot = Instantiate(motherDot, radarOrigin + deltaDir, Quaternion.identity);
+        var newDot = Instantiate(motherDot, transform);
+        newDot.GetComponent<RectTransform>().transform.position = radarOrigin + deltaDir;
+        //newDot.transform.position = radarOrigin + deltaDir;
+        newDot.SetActive(true);
+        radarDots.Add(newDot);
     }
 }
+
 

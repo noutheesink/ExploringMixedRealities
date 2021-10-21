@@ -27,7 +27,6 @@ public class ChooseMode : MonoBehaviour
 
     private void GoToSeekerScene()
     {
-	    Destroy(this);
 	    SceneManager.LoadScene("SeekerScene",LoadSceneMode.Single);
     }
     
