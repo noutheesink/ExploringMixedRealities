@@ -43,9 +43,13 @@ public class GPS : MonoBehaviour
 
     private IEnumerator StartLocationService()
     {
+        longText.enabled = false;
+        latText.enabled = false;
         if (!Input.location.isEnabledByUser)
         {
             logText.text = "User has not enabled GPS";
+            longText.enabled = false;
+            latText.enabled = false;
             yield break;
         }
 
@@ -65,6 +69,9 @@ public class GPS : MonoBehaviour
 
         while (Input.location.status != LocationServiceStatus.Failed)
         {
+            logText.text = "Coordinates:";
+            longText.enabled = true;
+            latText.enabled = true;
             latitude = Input.location.lastData.latitude;
             longitude = Input.location.lastData.longitude;
             yield return new WaitForSeconds(1);
@@ -77,8 +84,8 @@ public class GPS : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        longText.text = longitude.ToString();
-        latText.text = latitude.ToString();
+        longText.text = "Longitude: " + longitude.ToString();
+        latText.text = "Latitude: " + latitude.ToString();
 
         gpsCoordinate = new GeoCoordinate(latitude, longitude);
         if (latitude != 0 && longitude != 0)

@@ -51,5 +51,14 @@ public class ClientSend : MonoBehaviour
             SendUDPData(_packet);
         }
     }
+
+    public static void Button(string buttonFunction)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.actionButton))
+        {
+            _packet.Write(buttonFunction);
+            SendTCPData(_packet);
+        }
+    }
     #endregion
 }

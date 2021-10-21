@@ -17,26 +17,21 @@ public class RadarScript : MonoBehaviour
     public float testLong;
     public float testLat;
 
-    public TextMeshProUGUI distanceText;
-
     private Transform sweepTransform;
-
-    private GeoCoordinate mcDonaldsCoord;
 
     private GeoCoordinate myCoordinates;
     public double radarScale;
     public double maxDistance;
     public GameObject motherDot;
-    
+
     public List<GeoCoordinate> coordinatesList = new List<GeoCoordinate>();
     private List<GameObject> radarDots = new List<GameObject>();
-    
+
+    public GameObject radarJamming;
 
     private void Awake()
     {
         sweepTransform = transform.Find("Sweep");
-        
-        mcDonaldsCoord = new GeoCoordinate(testLat, testLong);
         
         //coordinatesList.Add(mcDonaldsCoord);
         XRSettings.LoadDeviceByName("");
@@ -47,24 +42,11 @@ public class RadarScript : MonoBehaviour
     void Start()
     {
         gps = GPS.Instance;
-        
-        //for (int i = 0; i < coordinatesList.Count; i++)
-        //{
-        //    RawImage newImage = Instantiate(enemyImage, transform);
-        //    newImage.gameObject.SetActive(true);
-        //    coordinatesList[i] = (coordinatesList[i].Item1, newImage);
-        //}
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(coordinatesList.Count);
-        //float distance = (float)gps.gpsCoordinate.GetDistanceTo(mcDonaldsCoord);
-
-        distanceText.text = "Distance to McDonalds: ";
-        //myCoordinates = gps.gpsCoordinate;
-
         coordinatesList.Clear();
 
         foreach (var player in GameManager.players)
@@ -76,30 +58,11 @@ public class RadarScript : MonoBehaviour
         radarDots.ForEach(Destroy);
         foreach(GeoCoordinate coordinates in coordinatesList)
         {
-            
-            //Debug.Log("coordinate: " + coordinates.Latitude + ", " + coordinates.Longitude);
             PlaceCoordinates(coordinates);
         }
 
-        //ShowOnRadar();
         Sweep();
     }
-
-    //private void ShowOnRadar()
-    //{
-    //    Vector2 gpsVector2 = new Vector2(gps.latitude, gps.longitude);
-    //    foreach (var (coordinate,image) in coordinatesList)
-    //    {
-    //        float distance = (float)gps.gpsCoordinate.GetDistanceTo(coordinate);
-
-    //        Vector2 direction = (new Vector2((float) coordinate.Latitude, (float) coordinate.Longitude) - gpsVector2)
-    //            .normalized;
-
-    //        Vector2 position = direction * distance;
-
-    //        image.rectTransform.position = position;
-    //    }
-    //}
 
     private void Sweep()
     {
@@ -114,7 +77,7 @@ public class RadarScript : MonoBehaviour
     private void PlaceCoordinates(GeoCoordinate coordinates)
     {
         double distance = gps.gpsCoordinate.GetDistanceTo(coordinates);
-        //Debug.Log("has distance: " + distance);
+        
         if (distance > maxDistance)
             return;
 
@@ -129,12 +92,26 @@ public class RadarScript : MonoBehaviour
 
         Vector3 radarOrigin = transform.position;
         
-        //var newDot = Instantiate(motherDot, radarOrigin + deltaDir, Quaternion.identity);
+        
         var newDot = Instantiate(motherDot, transform);
         newDot.GetComponent<RectTransform>().transform.position = radarOrigin + deltaDir;
-        //newDot.transform.position = radarOrigin + deltaDir;
+        
         newDot.SetActive(true);
         radarDots.Add(newDot);
+    }
+
+    public IEnumerator JamRadar()
+    {
+        float timeUntilJamStop = 20;
+
+        while (timeUntilJamStop > 0)
+        {
+            radarJamming.SetActive(true);
+            timeUntilJamStop -= Time.deltaTime;
+            yield break;
+        }
+
+        radarJamming.SetActive(false);
     }
 }
 

@@ -33,6 +33,12 @@ public class ClientHandle : MonoBehaviour
 
         GameManager.players[_id] = _coordinate;
     }
+    
+    public static void Button(Packet _packet)
+    {
+        string buttonFunction = _packet.ReadString();
+        
+    }
 
     public static void PlayerDisconnected(Packet _packet)
     {

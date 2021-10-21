@@ -9,9 +9,7 @@ using UnityEngine.UI;
 
 public class ChooseMode : MonoBehaviour
 {
-    [SerializeField] private Button seekerButton;
-    [SerializeField] private Button hiderButton;
-    
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -21,16 +19,14 @@ public class ChooseMode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-	    seekerButton.onClick.AddListener(GoToSeekerScene);
-	    hiderButton.onClick.AddListener(GoToHiderScene);
     }
 
-    private void GoToSeekerScene()
+    public void GoToSeekerScene()
     {
 	    SceneManager.LoadScene("SeekerScene",LoadSceneMode.Single);
     }
     
-    private void GoToHiderScene()
+    public void GoToHiderScene()
     {
 	    SceneManager.LoadScene("HiderScene",LoadSceneMode.Single);
     }

@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
 
+    public GameObject radar;
+
     private void Awake()
     {
         if (instance == null)
@@ -28,5 +30,23 @@ public class GameManager : MonoBehaviour
     public void SpawnPlayer(int _id, GeoCoordinate _coordinate)
     {
         players.Add(_id, _coordinate);
+    }
+
+    public void HandleButton(string buttonFunction)
+    {
+        switch (buttonFunction)
+        {
+            case "jamButton":
+                HandleJamButton();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void HandleJamButton()
+    {
+        if (!UIManager.instance.seeker) return;
+        StartCoroutine(radar.GetComponent<RadarScript>().JamRadar());
     }
 }
