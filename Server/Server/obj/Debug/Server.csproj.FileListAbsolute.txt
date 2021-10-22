@@ -12,3 +12,10 @@ C:\Users\nouth\Desktop\Server\Server\obj\Debug\Server.csprojAssemblyReference.ca
 C:\Users\nouth\Desktop\Server\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
 C:\Users\nouth\Desktop\Server\Server\obj\Debug\Server.exe
 C:\Users\nouth\Desktop\Server\Server\obj\Debug\Server.pdb
+C:\Users\nouth\Documents\Universiteit\Game Design Minor\Exploring_Mixed_Realities\ExploringMixedRealities\Server\Server\bin\Debug\Server.exe.config
+C:\Users\nouth\Documents\Universiteit\Game Design Minor\Exploring_Mixed_Realities\ExploringMixedRealities\Server\Server\bin\Debug\Server.exe
+C:\Users\nouth\Documents\Universiteit\Game Design Minor\Exploring_Mixed_Realities\ExploringMixedRealities\Server\Server\bin\Debug\Server.pdb
+C:\Users\nouth\Documents\Universiteit\Game Design Minor\Exploring_Mixed_Realities\ExploringMixedRealities\Server\Server\obj\Debug\Server.csprojAssemblyReference.cache
+C:\Users\nouth\Documents\Universiteit\Game Design Minor\Exploring_Mixed_Realities\ExploringMixedRealities\Server\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\nouth\Documents\Universiteit\Game Design Minor\Exploring_Mixed_Realities\ExploringMixedRealities\Server\Server\obj\Debug\Server.exe
+C:\Users\nouth\Documents\Universiteit\Game Design Minor\Exploring_Mixed_Realities\ExploringMixedRealities\Server\Server\obj\Debug\Server.pdb

@@ -10,19 +10,19 @@ namespace GameServer
     public enum ServerPackets
     {
         welcome = 1,
-        spawnPlayer,
-        playerPosition,
-        playerDisconnected,
-        actionButton
+        spawnPlayer = 2,
+        playerPosition = 3,
+        playerDisconnected = 4,
+        actionButton = 5
     }
 
     /// <summary>Sent from client to server.</summary>
     public enum ClientPackets
     {
         welcomeReceived = 1,
-        playerMovement,
-        clientGeoCoordinates,
-        actionButton
+        playerMovement = 2,
+        clientGeoCoordinates = 3,
+        actionButton = 5
     }
 
     public class Packet : IDisposable
