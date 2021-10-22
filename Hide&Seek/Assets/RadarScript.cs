@@ -49,7 +49,6 @@ public class RadarScript : MonoBehaviour
     void Update()
     {
         //rotate radar to north
-        Input.location.Start();
         Input.compass.enabled = true;
         Quaternion magneticRotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, -Input.compass.magneticHeading), Time.deltaTime * 2);
         transform.rotation = magneticRotation;
