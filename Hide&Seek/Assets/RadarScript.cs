@@ -31,7 +31,7 @@ public class RadarScript : MonoBehaviour
     private List<GameObject> radarDots = new List<GameObject>();
 
     public GameObject radarJamming;
-    private bool isJamming = false;
+    public bool isJamming = false;
 
     private void Awake()
     {
@@ -48,6 +48,18 @@ public class RadarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //rotate radar to north
+        Input.location.Start();
+        Input.compass.enabled = true;
+        Quaternion magneticRotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, -Input.compass.magneticHeading), Time.deltaTime * 2);
+        transform.rotation = magneticRotation;
+
+        //rotate all dots according to magnetic radar rotation
+        foreach (GameObject dot in radarDots)
+        {
+            dot.transform.RotateAround(gameObject.transform.position, new Vector3(0, 0, 1), magneticRotation.eulerAngles.z);
+        }
+        
         coordinatesList.Clear();
 
         foreach (var player in GameManager.players)
@@ -57,12 +69,18 @@ public class RadarScript : MonoBehaviour
         coordinatesList.Add(new GeoCoordinate(testLat,testLong));
         
         radarDots.ForEach(Destroy);
+        radarDots.Clear();
         foreach(GeoCoordinate coordinates in coordinatesList)
         {
             PlaceCoordinates(coordinates);
         }
-
-        Sweep();
+        
+        //rotate all dots according to magnetic radar rotation
+        foreach (GameObject dot in radarDots)
+        {
+            dot.transform.RotateAround(gameObject.transform.position, new Vector3(0, 0, 1), magneticRotation.eulerAngles.z);
+        }
+        //Sweep();
     }
 
     private void Sweep()
